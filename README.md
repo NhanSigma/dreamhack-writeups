@@ -193,7 +193,7 @@ Sau khi vượt qua 37 lần thì chúng ta chỉ cần gửi lệnh `";/bin/sh;
 
 `"echo \"%s\" > /tmp/cat_db"` thì đầu tiên bạn phải có dấu `"` để đóng lệnh " này lại. Nó sẽ như vậy `echo ""` nghĩa là không làm gì cả. Tiếp theo là `;/bin/sh`, nó có nghĩa là hãy mở lệnh `/bin/sh`, dấu `;` có tác dụng nói với em gái Linux rằng đây là 1 lệnh riêng độc lập không liên quan gì tới thằng chó đằng trước cả. Lệnh cuối là `#"`, đầu tiên là `#` có tác dụng là biến các dòng chữ hoặc lệnh phía sau `/bin/sh` thành ghi chú và không chạy được. Còn `"` là để đóng lại lệnh `echo` vì các bạn thấy đầu `echo` nó có `"` nên ta cần 1 cái để đóng nó lại.
 
-Vậy là xong bài Cat Jump rồi, thật tội nghiệp vì chúng ta không cho bé mèo này chơi **cỏ mèo** huhuhu 😿. Hy vọng PETA sẽ không liên hệ với tôi. Dù sao thì bài này nó giúp các bạn biết thêm về thư viện C và lệnh linux thôi, khá dễ. Hãy cho mình 1 star để viết tiếp nha 🐧.
+Vậy là xong bài Cat Jump rồi, thật tội nghiệp vì chúng ta không cho bé mèo này chơi **cỏ mèo** huhuhu 😿. Hy vọng PETA sẽ không liên hệ với mình vì tội ngược đãi động vật. Dù sao thì bài này nó giúp các bạn biết thêm về thư viện C và lệnh linux thôi, khá dễ. Hãy cho mình 1 star để viết tiếp nha 🐧.
 
 ```Python
 from pwn import *
