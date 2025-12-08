@@ -187,7 +187,7 @@ for i in range(GOAL):
     # p.recvlines(2) # Có thể bật dòng này nếu muốn debug kỹ
 ```
 
-Nếu các bạn vẫn chưa hiểu đồng bộ RNG là sao thì nó như vậy nè. Lấy lại chuỗi cũ là 36 67 18 27 10... Chương trình 1 vòng lặp nó `rand()` tận 2 lần, 1 lần là cho hướng chướng ngại vật, 1 lần là quyết định có ra **kim cương** không. Nên nó sẽ lấy 1 lần 2 số. Và nếu ta chỉ `rand()` 1 lần thì số thứ 2 đáng lẽ ở bên chương trình là quyết định có ra **kim cương** không thì sang bên này lại dùng để kiểm tra hướng chướng ngại vật. Từ đó chạy sai.
+Nếu các bạn vẫn chưa hiểu đồng bộ RNG là sao thì nó như vậy nè. Lấy lại chuỗi cũ là 36 67 18 27 10... Chương trình này, 1 vòng lặp nó `rand()` tận 2 lần, 1 lần là cho hướng chướng ngại vật, 1 lần là quyết định có ra **kim cương** không. Nên nó sẽ lấy 1 lần 2 số. Và nếu ta chỉ `rand()` 1 lần thì số thứ 2 đáng lẽ ở bên chương trình là quyết định có ra **kim cương** không, thì sang bên này lại dùng để kiểm tra hướng chướng ngại vật. Từ đó chạy sai.
 
 Sau khi vượt qua 37 lần thì chúng ta chỉ cần gửi lệnh `";/bin/sh;#"` để chạy chương trình. Giờ hãy mổ xẻ câu lệnh này nào.
 
