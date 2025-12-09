@@ -39,7 +39,11 @@ Sau khi có Canary thì giờ chúng ta cần các địa chỉ sau để ROP v�
 
 Đầu tiên dễ nhất là `ret` và `pop_rdi`, các bạn cứ gõ lệnh `ROPgadget --binary | grep '...'` để tìm
 
+Đây là `ret`
+
 <img width="293" height="29" alt="image" src="https://github.com/user-attachments/assets/0b7da98b-d963-4feb-a416-7968d6deeafc" />
+
+Đây là `pop_rdi`
 
 <img width="412" height="25" alt="image" src="https://github.com/user-attachments/assets/598323b6-6dcc-4d60-87d9-5b468b5fd464" />
 
