@@ -172,6 +172,6 @@ p.sendlineafter('finish : ', b'done')
 p.interactive()
 ```
 
-Bài này dùng để luyện trình **Format String** thôi, khá hay vì lỗi nó đã ghi sẵn ra luôn rồi, nhìn vào ta thấy flag ngay lặp tức. Dù sao thì hãy cho mình 1 star để mình có động lực viết tiếp write up nha !
+Bài này dùng để luyện trình **Format String** thôi, khá hay vì lỗi nó đã ghi sẵn ra luôn rồi, nhìn vào ta thấy flag ngay lặp tức. Dù sao thì hãy cho mình 1 star để mình có động lực viết tiếp write up nha 🐧 !
 
 ![623701239_1381651590644212_1761345844325536645_n](https://github.com/user-attachments/assets/864f6e50-9e6a-499b-a95c-290ca1811191)
