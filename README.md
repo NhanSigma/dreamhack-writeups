@@ -127,7 +127,7 @@ p.sendlineafter(b'Password :', password)
 p.sendlineafter(b'Name : ', b'wyv3rn')
 ```
 
-Giờ ta sẽ ghi địa chỉ `dest` vào thằng `v16` và sau đó dùng lỗi **Format String** để biến nó thằng full byte null.
+Giờ ta sẽ ghi địa chỉ `dest` vào thằng `v16` và sau đó dùng lỗi **Format String** để biến nó thằng full byte null. Để tìm được offset của thằng `v16` thì các bạn lấy vị trí của nó trong ida là `rsp+10h` - `rsp+0h` của thằng `s2`. Sau đó chia 8 cộng thêm 6 là ra.
 
 ```Python
 p.sendlineafter(b'>> ', b'2')
@@ -138,7 +138,7 @@ p.sendlineafter(b'>> ', b'2')
 p.sendlineafter(b'Password :', b'%8$lln')
 ```
 
-Sau khi thỏa mãn hết tất cả điều kiện, ta chỉ cần chọn option 3 và out ra là xong. Bài này nó nhiều biến để làm các bạn rối mắt thôi chứ thật ra nếu bạn nhìn thấy lỗi thì sẽ làm rất dễ. Thôi thì hãy cho mình 1 star để có động lực viếp tiếp nha 🐧.
+Sau khi thỏa mãn hết tất cả điều kiện, ta chỉ cần chọn option 3 và out ra là xong. Thật ra bài này các bạn có thể tìm offset thông qua các địa chỉ nó đã ghi sẵn trong ida, không cần nhất thiết phải vô gdb coi đâu. Mình vô đó coi để xem stack như nào để kiếm được offset để leak vị trí stack ra thôi. Bên cạnh đó bài này nó nhiều biến để làm các bạn rối mắt thôi chứ thật ra nếu bạn nhìn thấy lỗi thì sẽ làm rất dễ. Thôi thì hãy cho mình 1 star để có động lực viếp tiếp nha 🐧.
 
 ## 3. Exploit
 ```Python
