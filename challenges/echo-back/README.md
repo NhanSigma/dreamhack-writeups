@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài echo-back cho anh em mới chơi pwnable.
 ## 1.Mục tiêu cần làm
 Đầu tiên xem bài này như nào đã
 
-<img width="382" height="178" alt="image" src="https://github.com/user-attachments/assets/bac4d06a-4a55-4d5e-8dd0-c0d5d1e0247c" />
+<img width="382" height="178" alt="image" src="images/bac4d06a-4a55-4d5e-8dd0-c0d5d1e0247c.png" />
 
 Giờ hãy xem code nào, bài này chỉ có 2 hàm chính thôi.
 
@@ -53,15 +53,15 @@ Khi ta ghi hơn 136 byte, nó sẽ đè vô RBP và RIP. Mục tiêu của ta l�
 ## 2. Cách thực thi
 Bài này tác giả giấu 1 hàm in flag ra, các bạn `Shift + F12`
 
-<img width="164" height="172" alt="image" src="https://github.com/user-attachments/assets/8dcf83b2-e487-4891-b9f1-bb0c0eb55c0b" />
+<img width="164" height="172" alt="image" src="images/8dcf83b2-e487-4891-b9f1-bb0c0eb55c0b.png" />
 
-<img width="747" height="220" alt="image" src="https://github.com/user-attachments/assets/017dadba-e9db-4c26-a5ba-3e826ed625a9" />
+<img width="747" height="220" alt="image" src="images/017dadba-e9db-4c26-a5ba-3e826ed625a9.png" />
 
 Double click vô `flag.txt`, ta thấy được hàm in ra flag. Nó bắt đầu tại `0x401340`. Bài này NO PIE nên ta xài được luôn cái này. Vậy chỉ cần đè RIP bằng địa chỉ này là win.
 
 vậy là xong, bài này khá là dễ. Bài này mình mất tận 2h ngồi mò nhưng quên mất `Shift + F12` 🥲. Thôi thì mong các bạn cho mình 1 star để mình có thêm động lực để viết tiếp thêm write up nha 🐧.
 
-<img width="1600" height="950" alt="image" src="https://github.com/user-attachments/assets/4be6ec67-8f84-43d6-a3ba-749edb002a85" />
+<img width="1600" height="950" alt="image" src="images/4be6ec67-8f84-43d6-a3ba-749edb002a85.png" />
 
 ## 3. Exploit
 ```Python

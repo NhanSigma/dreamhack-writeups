@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Magic Brush cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Đầu tiên xem các lớp bảo vệ
 
-<img width="293" height="171" alt="image" src="https://github.com/user-attachments/assets/58309b56-45c1-4ade-bb83-39d222d03a20" />
+<img width="293" height="171" alt="image" src="images/58309b56-45c1-4ade-bb83-39d222d03a20.png" />
 
 Không bất ngờ lắm. Giờ hãy đọc code xem ta có lỗi gì nào.
 
@@ -93,18 +93,18 @@ Tác giả chia ra thành 2 bài riêng biệt nhưng cách giải y hệt nhau 
 
 Thực ra bài 1 còn 1 cách giải ngắn hơn nữa. Các bạn hãy đọc code assembly của nó là thấy.
 
-<img width="924" height="606" alt="image" src="https://github.com/user-attachments/assets/80c04c6e-5386-46eb-b19b-716f5fa17757" />
+<img width="924" height="606" alt="image" src="images/80c04c6e-5386-46eb-b19b-716f5fa17757.png" />
 
 Đây là code assembly của main, các bạn thấy gì không. Nó có 1 điều kiện và nếu thỏa mãn nó thì nó sẽ gọi `get_flag`. Điều kiện là `rbp-0x34` = 2025. Ok vậy là chỉ cần tìm được địa chỉ của stack sau đó ghi 2025 vào `rbp-0x34` là xong.
 
 ## 2. Cách thực thi
 Giờ ta hãy mở stack lên xem thử coi stack nằm ở vị trí nào
 
-<img width="856" height="463" alt="image" src="https://github.com/user-attachments/assets/fc2a1d64-605f-42bf-93fe-2c452ba39cb2" />
+<img width="856" height="463" alt="image" src="images/fc2a1d64-605f-42bf-93fe-2c452ba39cb2.png" />
 
 Stack bắt đầu tại `rsp` và mục tiêu mình là `rbp` nên công thức tính sẽ là ` ( rsp - rbp ) / 8 + 6 = 14 `. Vậy mình sẽ xài `%14$p` để in ra stack, sau đó ta sẽ tính luôn vị trí của `rbp-0x34` là bao nhiêu.
 
-<img width="598" height="186" alt="image" src="https://github.com/user-attachments/assets/878a5479-bfea-4050-b1af-db451f037f96" />
+<img width="598" height="186" alt="image" src="images/878a5479-bfea-4050-b1af-db451f037f96.png" />
 
 Vậy là đủ hết rồi, bắt tay vô code thôi.
 
@@ -174,4 +174,4 @@ p.interactive()
 
 Bài này dùng để luyện trình **Format String** thôi, khá hay vì lỗi nó đã ghi sẵn ra luôn rồi, nhìn vào ta thấy flag ngay lặp tức. Dù sao thì hãy cho mình 1 star để mình có động lực viết tiếp write up nha 🐧 !
 
-![623701239_1381651590644212_1761345844325536645_n](https://github.com/user-attachments/assets/864f6e50-9e6a-499b-a95c-290ca1811191)
+![623701239_1381651590644212_1761345844325536645_n](images/864f6e50-9e6a-499b-a95c-290ca1811191.jpg)

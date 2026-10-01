@@ -195,7 +195,7 @@ Sau khi vượt qua 37 lần thì chúng ta chỉ cần gửi lệnh `";/bin/sh;
 
 Vậy là xong bài Cat Jump rồi, thật tội nghiệp vì chúng ta không cho bé mèo này chơi **cỏ mèo** huhuhu 😿. Hy vọng PETA sẽ không liên hệ với mình vì tội ngược đãi động vật.
 
-<img width="226" height="223" alt="image" src="https://github.com/user-attachments/assets/1a954f3f-db71-4067-980f-18b037836f7b" />
+<img width="226" height="223" alt="image" src="images/1a954f3f-db71-4067-980f-18b037836f7b.png" />
 
 Dù sao thì bài này nó giúp các bạn biết thêm về thư viện C và lệnh linux thôi, khá dễ. Hãy cho mình 1 star để viết tiếp nha 🐧.
 

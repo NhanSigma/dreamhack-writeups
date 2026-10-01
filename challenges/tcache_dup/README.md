@@ -100,13 +100,13 @@ int main() {
 ## 2. Cách thực thi
 Đầu tiên mình sẽ tạo 1 chunk và free chunk đó 2 lần liên tục, nó sẽ tự trỏ vào nhau trong chính bins và heap.
 
-<img width="1663" height="219" alt="image" src="https://github.com/user-attachments/assets/6adc0748-28c5-418f-8b04-c86d61b5a562" />
+<img width="1663" height="219" alt="image" src="images/6adc0748-28c5-418f-8b04-c86d61b5a562.png" />
 
 Như các bạn thấy, nó đang trỏ vào chính nó. Giờ mình sẽ tạo 1 chunk bằng kích thước đó và ghi nội dung vào. Tại vì vị trí ghi nội dung lại trùng ngay vị trí con trỏ nên ta có thể thay đổi nó. Sẽ có 1 vài bài không có được vậy nên chúng ta hãy xài cách khác.
 
 Đây là sau khi mình ghi vị trí `printf` vào con trỏ đó.
 
-<img width="1402" height="210" alt="image" src="https://github.com/user-attachments/assets/1fb3f1e4-57e1-49c0-ad66-b401eba3cafe" />
+<img width="1402" height="210" alt="image" src="images/1fb3f1e4-57e1-49c0-ad66-b401eba3cafe.png" />
 
 Các bạn thấy chưa, nó đã trỏ vào `printf` rồi. Bins thì nó sẽ hoạt động theo cách LIFO, nên nếu chúng ta muốn lấy chunk tại vị trí `printf` thì ta cần lấy chunk đầu tiên ra đã. Nên mình sẽ malloc 1 chunk rác rồi sau đó mới lấy chunk `printf` ra.
 

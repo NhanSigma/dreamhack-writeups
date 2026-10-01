@@ -16,13 +16,13 @@ Hướng dẫn cách giải bài Obese Canary cho anh em mới chơi pwnable.
 ## 2. Cách làm
 Đầu tiên chúng ta cần phải xem bài này có các lớp bảo mật gì.
 
-<img width="1195" height="228" alt="image" src="https://github.com/user-attachments/assets/dd422461-55c1-4172-bd67-1458e438d679" />
+<img width="1195" height="228" alt="image" src="images/dd422461-55c1-4172-bd67-1458e438d679.png" />
 
 Như các bạn thấy thì nó có PIE và Canary ( như mục tiêu ban đầu của chúng ta ). Giờ thì hãy bắt tay vào việc đầu tiên đó là tìm ra được Canary của bài ( nó khá là béo tận 64 byte ).
 
 Khi các bạn chạy chương trình nó có 3 mục như sau :
 
-<img width="875" height="126" alt="image" src="https://github.com/user-attachments/assets/2128d156-6905-4047-91b4-a2eea6b74691" />
+<img width="875" height="126" alt="image" src="images/2128d156-6905-4047-91b4-a2eea6b74691.png" />
 
 1. Là in ra biến buf mà bạn sẽ nhập. Đây sẽ là mục tiêu khai thác chính của chúng ta.
 2. Là để chạy hàm read của chương trình, nhằm mục đích nhận các byte mà bạn đã nhập vào buf.
@@ -131,7 +131,7 @@ disas main
 
 Rồi các bạn hãy đặt breakpoint tại read@plt để nó không nhập vào buf.
 
-<img width="749" height="72" alt="image" src="https://github.com/user-attachments/assets/45384d6c-310a-4011-8e52-f6e9ead4d209" />
+<img width="749" height="72" alt="image" src="images/45384d6c-310a-4011-8e52-f6e9ead4d209.png" />
 
 ```
 b *0x00005555555553f2
@@ -140,7 +140,7 @@ c
 
 Sau đó hãy nhấn 2 và Enter nó sẽ không chạy phần `Input operation : ` mà nó sẽ skip luôn. Sau đó gõ `x/40gx $rsi` để tìm stack ở địa chỉ ban đầu của buf.
 
-<img width="713" height="486" alt="image" src="https://github.com/user-attachments/assets/ad6b5856-b8f4-4ee9-8269-6fe439d4058b" />
+<img width="713" height="486" alt="image" src="images/ad6b5856-b8f4-4ee9-8269-6fe439d4058b.png" />
 
 Cái địa chỉ ban đầu `0x7fffffffdf40` là do tác giả đã ghi `buf[0] = 0LL; buf[1] = 0LL`. Thường địa chỉ Binary nó sẽ bắt đầu bằng 0x555... và số đuôi phải đẹp. Ta nhìn vô sẽ thấy tại địa chỉ `0x7fffffffdf40` có `0x0000555555555289` vô cùng đẹp, suy ra đây là địa chỉ của Binary. Chúng ta sẽ tính toán 1 chút để tìm xem offset từ buf đến nó là bao nhiêu bằng cách lấy `0x7fffffffdf40` - `0x7fffffffdf40` = 136 byte quá đẹp. Vậy sau 136 byte nó sẽ là địa chỉ leak_binary.
 
@@ -159,11 +159,11 @@ leak_binary = u64(leak_binary_raw.ljust(8, b'\x00'))
 ```
 Giờ hãy tìm địa chỉ base ( tức là địa chỉ ban đầu của file này ) bằng cách gõ vmmap.
 
-<img width="1326" height="556" alt="image" src="https://github.com/user-attachments/assets/7101352f-c5a8-40d9-8fc4-ad702948db27" />
+<img width="1326" height="556" alt="image" src="images/7101352f-c5a8-40d9-8fc4-ad702948db27.png" />
 
 Nó là `0x555555554000`, sau đó chúng ta hãy tìm địa chỉ tuyệt đối ( tức là địa chỉ ban đầu của hàm main ) trừ cho địa chỉ ban đầu là ra khoảng cách tĩnh ( offset ).
 
-<img width="581" height="142" alt="image" src="https://github.com/user-attachments/assets/03351fd2-79bf-4ba7-aaa5-867367145b8f" />
+<img width="581" height="142" alt="image" src="images/03351fd2-79bf-4ba7-aaa5-867367145b8f.png" />
 
 Địa chỉ ban đầu của main là `0x0000555555555289` và muốn trừ thì ta lấy lần lượt các số cuối trừ đi như sau : 
 - 9 - 0 = 9
@@ -209,13 +209,13 @@ Vậy là ra được base binary rồi giờ hãy cook bài này thôi.
 
 Giờ chuyển sang bước 4 là chiếm quyên điều khiển. Trong bài này nó có 1 hàm để in ra flag cho chúng ta, để tìm được các bạn hãy mở ida64 lên và dịch ngược bài này. Sau khi mở hãy bấm `shift + F12` và tìm cho tôi `I give you a flag`. Bấm vô nó và kéo lên trên đến khi tìm được dòng này.
 
-<img width="1060" height="379" alt="image" src="https://github.com/user-attachments/assets/43c35a1d-d34a-483d-911e-5deec1cdd7c8" />
+<img width="1060" height="379" alt="image" src="images/43c35a1d-d34a-483d-911e-5deec1cdd7c8.png" />
 
 Thường khi bắt đầu 1 hàm thì nó sẽ có dòng `_unwind` và hàm in flag này cũng vậy. Vậy thì địa chỉ `000000000000158E` chính là địa chỉ của hàm này. Suy ra `win_address = 0x158E`. Nhưng bài này có 1 éo le là **Quy tắc "16-Byte Alignment" (Luật bất thành văn)**. Các bạn hãy search google để tìm hiểu thêm về luật này. Vậy nên chúng ta phải thêm địa chỉ của hàm `ret` vào.
 
 Để tìm được địa chỉ của `ret` thì chúng ta đơn giản là `disas main` rồi tìm địa chỉ hàm `ret` trong main thôi.
 
-<img width="431" height="47" alt="image" src="https://github.com/user-attachments/assets/e857e492-15f8-4406-8986-9f10e4f40ded" />
+<img width="431" height="47" alt="image" src="images/e857e492-15f8-4406-8986-9f10e4f40ded.png" />
 
 Địa chỉ `ret` là `0x0000555555555492` hay `0x5492`.
 
@@ -234,7 +234,7 @@ payload += p64(win_addr) # ghi đè saved RIP bằng địa chỉ in ra flag
 
 Vậy là xong khi chạy chương trình nó sẽ in ra flag thẳng cho chúng ta luôn.
 
-<img width="738" height="120" alt="image" src="https://github.com/user-attachments/assets/a68b3213-3678-48d6-a682-03b064dbb5dc" />
+<img width="738" height="120" alt="image" src="images/a68b3213-3678-48d6-a682-03b064dbb5dc.png" />
 
 Quá đơn giản phải không các bạn. Hãy cho mình 1 star nha 🐧
 

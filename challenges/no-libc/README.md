@@ -15,7 +15,7 @@ Khi file gọi hàm syscall3( Số bất kì ), tức là nó đang thực hiệ
 ## 2. Cách thực hiện
 Trước tiên chúng ta cần xem bài này có các lớp bảo mật gì đã.
 
-<img width="359" height="182" alt="image" src="https://github.com/user-attachments/assets/f03d407f-717b-410a-a64c-013d8fddaf25" />
+<img width="359" height="182" alt="image" src="images/f03d407f-717b-410a-a64c-013d8fddaf25.png" />
 
 Ta thấy RELRO là no. Điều này xác nhận binary được liên kết tĩnh, không phụ thuộc thư viện ngoài (libc). Do đó, ta không thể sử dụng kỹ thuật ret2libc mà sẽ hướng tới sử dụng ROP gadgets có sẵn hoặc kỹ thuật SROP.
 
@@ -25,7 +25,7 @@ Giờ thì để chiếm quyền điều khiển chúng ta cần thực hiện l
 
 Các bạn hãy gõ lệnh sau `ROPgadget --binary nolibc --string "/bin/sh"` và nó sẽ ra như vậy.
 
-<img width="739" height="61" alt="image" src="https://github.com/user-attachments/assets/34301309-9e2b-4525-a832-316d7ccb5c9b" />
+<img width="739" height="61" alt="image" src="images/34301309-9e2b-4525-a832-316d7ccb5c9b.png" />
 
 Vậy địa chỉ của `/bin/sh` là `0x2000`
 
@@ -47,7 +47,7 @@ Trước khi vào code chính payload thì để mình nói sơ về cách hoạ
 
 Đầu tiên cần tìm xem offset từ buf đến saved RIP là bao nhiêu byte. Bạn hãy tạo 1 chuỗi dài tầm cỡ 100 hay 200 byte gì đó, copy nó, mở gdb nolibc lên, run với đống byte đó. Sau đó hãy nhìn vào con trỏ RSP đang ở đâu. Vì saved RIP đã bị đè nên nó không return về được nên RSP sẽ bị kẹt ở đó luôn.
 
-<img width="900" height="187" alt="image" src="https://github.com/user-attachments/assets/b6f74059-6880-411f-8d8c-e920f6768cb3" />
+<img width="900" height="187" alt="image" src="images/b6f74059-6880-411f-8d8c-e920f6768cb3.png" />
 
 Sau đó các bạn hãy sử dụng pwntools gõ lệnh như sau. 
 
@@ -58,17 +58,17 @@ print(cyclic_find('4 byte đầu'))
 
 Nó sẽ ra 72, đây chính là offset để ghi đè từ buf đến saved RIP
 
-<img width="407" height="50" alt="image" src="https://github.com/user-attachments/assets/c7da3be3-4212-435e-9394-8b5510cf222e" />
+<img width="407" height="50" alt="image" src="images/c7da3be3-4212-435e-9394-8b5510cf222e.png" />
 
 Giờ hãy nói về cách hoạt động
 
-<img width="425" height="327" alt="image" src="https://github.com/user-attachments/assets/112588d1-3ae5-4fb7-b753-079593b49370" />
+<img width="425" height="327" alt="image" src="images/112588d1-3ae5-4fb7-b753-079593b49370.png" />
 
 Nếu bạn chạy file bình thường thì nó sẽ như vậy. Đầu tiên là chạy hàm `vuln()`, sau đó là `syscall(0)` hay còn là `read()` và cuối cùng là `return`. Nhưng sẽ ra sao nếu chúng ta ghi đè `saved RIP` bằng hàm vuln và sau đó chèn thêm `syscall_gadget` và sau đó là `Fake frame` mà ta đã gõ. Nhưng lệnh `syscall_gadget` để làm gì vậy Nhân Simga 🗣️ 🔥🔥🔥.
 
 `Syscall_gadget` nó giống như người đưa thư vậy. Nếu chúng ta chỉ bỏ `Fake frame` lên mà không gọi syscall thì không khác gì chúng ta vứt thư vô hộp thư không có người giao. Nó sẽ không được giao đến cho `Admin` để được thực thi nó.
 
-<img width="425" height="478" alt="image" src="https://github.com/user-attachments/assets/ac6fe9c5-5c90-4335-896a-ca6e194f1309" />
+<img width="425" height="478" alt="image" src="images/ac6fe9c5-5c90-4335-896a-ca6e194f1309.png" />
 
 Khi chúng ta chạy đến `vuln()` nằm ở hàng thứ 3 thì trước khi nó thực thi lệnh `syscall_gadget`, nó sẽ thực thi lệnh `read` lần nữa. Đây là 1 lợi thế vì chúng ta có thể lợi dụng nó để nhập vào con số 15 để thực thi `syscall(15)` của chúng ta. Và một khi RSP trỏ đến `syscall_gadget`, không còn gì ngăn cản chúng ta bỏ `Fake frame` lên trên CPU và bắt em CPU múp rụp phục vụ chúng ta.
 
@@ -86,7 +86,7 @@ payload += bytes(frame)         # Dữ liệu cho syscall load
 
 Làm sao để tìm `syscall_gadget` ? Bạn chỉ cần gõ lệnh `ROPgadget --binary nolibc | grep 'syscall'` rồi tìm địa chỉ nào chỉ có mỗi lệnh syscall không là được.
 
-<img width="1382" height="163" alt="image" src="https://github.com/user-attachments/assets/da0d30f5-cfda-44c1-912f-8eac34f2f619" />
+<img width="1382" height="163" alt="image" src="images/da0d30f5-cfda-44c1-912f-8eac34f2f619.png" />
 
 Địa chỉ 0x401028 là địa chỉ ta cần tìm. Vậy là xong bài này khá là dễ nên không cần nói gì quá nhiều nữa. Hãy cho mình 1 star để có động lực viết tiếp nha 🐧.
 

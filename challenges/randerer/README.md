@@ -88,7 +88,7 @@ canary = canary & 0xFFFFFFFFFFFFFFFF
 
 Giờ thì việc còn lại của chúng ta là tìm offset để đè tới saved rip là xong. Chúng ta hãy chạy gdb và đặt breakpoint tại `read@plt` để xem thử trên stack nó như nào. Sau đó hãy `run` và gõ `tele`.
 
-<img width="1854" height="225" alt="image" src="https://github.com/user-attachments/assets/4bc527c7-af1a-413d-8d7a-73c57d6bc96b" />
+<img width="1854" height="225" alt="image" src="images/4bc527c7-af1a-413d-8d7a-73c57d6bc96b.png" />
 
 `04:0020` là saved RBP còn `00:0000` là đang chỗ buf, nó đang 0 là vì chúng ta đã chặn dữ liệu được đọc vào. Thì từ 00 đến 20 là 0x20 byte tương đương 32 byte. Vậy là cần 40 byte ( 16 buf + 8 canary + 8 padding + 8 saved rbp ) để đè tới saved rip.
 

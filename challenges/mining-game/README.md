@@ -292,7 +292,7 @@ int main(){
 
 Code khá dài nhưng mình sẽ tóm gọn lại như sau. Khi các bạn chạy chương trình nó sẽ đưa ra 3 option
 
-<img width="280" height="162" alt="image" src="https://github.com/user-attachments/assets/2a833aac-c961-4ad4-bf42-31355a7c8ce1" />
+<img width="280" height="162" alt="image" src="images/2a833aac-c961-4ad4-bf42-31355a7c8ce1.png" />
 
 1. Đào ( ra 3 loại : kim loại thường, kim loại hiếm, không ra mẹ gì )
 2. Show ra tất cả kim loại đã đào
@@ -352,11 +352,11 @@ Vậy chúng ta chỉ cần tìm ra được kim loại hiếm sau đó ghi mô 
 
 Vậy địa chỉ `get_shell` kiếm sao ? Trong code C thì các bạn thấy hàm `get_shell` nhưng sang file dịch ngược các bạn tìm lòi mắt cũng không thấy đâu. Giờ hãy mở file dịch ngược lên bấm tổ hợp phím Shift + F12. Sau đó tìm chuỗi `/bin/sh`.
 
-<img width="168" height="91" alt="image" src="https://github.com/user-attachments/assets/8261633f-96a7-4a41-920a-c04592a89bfe" />
+<img width="168" height="91" alt="image" src="images/8261633f-96a7-4a41-920a-c04592a89bfe.png" />
 
 Double click vào nó và bấm vào sau đó ấn X.
 
-<img width="680" height="203" alt="image" src="https://github.com/user-attachments/assets/dad513bc-f81c-4bc6-a577-4b24d461857d" />
+<img width="680" height="203" alt="image" src="images/dad513bc-f81c-4bc6-a577-4b24d461857d.png" />
 
 Vậy địa chỉ bắt đầu ở `0x402576`, hên là bài này no PIE nên đây sẽ là địa chỉ đúng luôn. Giờ có đủ hết rồi bắt đầu băm thôi.
 

@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Magic Box cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Đầu tiên là xem các lớp phòng thủ xem có gì
 
-<img width="364" height="167" alt="image" src="https://github.com/user-attachments/assets/cd8b9fb4-31b8-4ae4-87f0-3403e19bb4dc" />
+<img width="364" height="167" alt="image" src="images/cd8b9fb4-31b8-4ae4-87f0-3403e19bb4dc.png" />
 
 No PIE, khá ổn áp. Giờ hãy sang phần lỗi trong code.
 
@@ -136,7 +136,7 @@ Ta phát hiện 1 lỗi khá nặng ở đây, nó khởi tạo mảng `char v8`
 
 Dựa vào cấu trúc trên, ta có được sơ đồ stack như sau
 
-<img width="879" height="128" alt="image" src="https://github.com/user-attachments/assets/172aa38c-c9c2-42ad-bb84-d50ea2cb2ca0" />
+<img width="879" height="128" alt="image" src="images/172aa38c-c9c2-42ad-bb84-d50ea2cb2ca0.png" />
 
 0 - 14 vị trí đầu là của `strcpy(v8, "hello world :)");`, tiếp theo là canary `*(_QWORD *)&v8[15] = __readfsqword(0x28u);`. Sau đó là saved RBP và saved RIP.
 

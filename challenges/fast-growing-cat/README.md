@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Fast Growing Cat cho anh em mới chơi pwnable
 ## 1. Mục tiêu cần làm
 Bài này nó là sự pha trộn giữa heap và stack nên các lớp phòng thủ nó không có đầy đủ như các bài heap bình thường.
 
-<img width="362" height="217" alt="image" src="https://github.com/user-attachments/assets/d9bdf09a-6c16-43bd-ad51-8febcda836d4" />
+<img width="362" height="217" alt="image" src="images/d9bdf09a-6c16-43bd-ad51-8febcda836d4.png" />
 
 Cái quan trọng các bạn cần để ý là **No Canary**. Bài này sử dụng 1 kĩ thuật tên là **Fastbin Dup Into Stack**. Các bạn có thể đọc thêm tại `How2heap` để hiểu rõ về cơ chế này nha. 
 
@@ -195,7 +195,7 @@ feed(1)
 feed(0)
 ```
 
-<img width="1278" height="285" alt="image" src="https://github.com/user-attachments/assets/e7d6d21e-a757-4e65-9337-48d4f85dd4d6" />
+<img width="1278" height="285" alt="image" src="images/e7d6d21e-a757-4e65-9337-48d4f85dd4d6.png" />
 
 Giờ thì ta đã có 2 food trỏ vào nhau rồi, mình sẽ tạo 1 food chứa địa chỉ stack và rút nó ra để có khi rút cái cuối nó sẽ nhảy vào stack.
 
@@ -205,7 +205,7 @@ create(b'pad', 1)
 create(b'pad', 1)
 ```
 
-<img width="1355" height="257" alt="image" src="https://github.com/user-attachments/assets/65102af1-7b6b-490e-a099-7edb203753bf" />
+<img width="1355" height="257" alt="image" src="images/65102af1-7b6b-490e-a099-7edb203753bf.png" />
 
 Nhưng trước khi rút food cuối ra thì mình cần phải setup stack trước đã. Calloc nó sẽ lấy địa chỉ trỏ vào + 0x8 kiểm tra xem nó có phù hợp với độ lớn của fastbin hay không. Như trong hình thì fastbin của mình đang là 0x40 thì mình cần setup `stack + 0x8` = 0x40 nó mới cho rút và khởi tạo không thì sẽ bị malloc free ngay.
 
@@ -217,7 +217,7 @@ p.sendlineafter(b'which inventory do you want to put it in? ', str(2).encode())
 
 Sau khi setup xong stack thì mình rút ra, mình sẽ được ghi vào vị trí `stack + 0x10`, trùng hợp mình ghi vào `RBP + RIP` nên mình sẽ điền RBP cho đẹp tí và RIP là hàm win, các bạn có thể điền RBP là gì cũng được, mình sẽ điền thử full A.
 
-<img width="761" height="187" alt="image" src="https://github.com/user-attachments/assets/fc0d1b48-84f5-4c43-b72e-53f4b91617a8" />
+<img width="761" height="187" alt="image" src="images/fc0d1b48-84f5-4c43-b72e-53f4b91617a8.png" />
 
 Giờ chỉ cần nhập `muow` là chương trình tự động thoát và bùm nổ banh shell. Thế thôi bài chỉ có nhiêu đây à, cảm ơn các bạn đã xem hãy cho mình 1 star để có động lực viết tiếp nha 🐧.
 
@@ -281,6 +281,6 @@ Các bạn thấy dạo gần đây mình không ra write-up, thật ra có 3 l�
 
 Hết rồi mình chỉ tâm sự nhiêu đây thôi, dù sao thì cảm ơn mọi người đã đồng hành cùng mình từ những ngày đầu học pwn. À lí do chính mình viết write up các bài dreamhack và public lên github là do lúc mới học có mấy bài mình không biết giải nên lên mạng tìm mà mấy thằng cha hàn xẻng cứ dém dém bắt nhập pass mới cho coi. Nên mình viết để các bạn giống mình hồi xưa có thể đọc được và biết cách làm ( mẹ AI giờ toàn bị cắm flag cay vcl, không xài được con nào 🥲 ).
 
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/34ff463a-9dd7-484c-bc05-dd0cf7aa32db" />
+<img width="1024" height="1024" alt="image" src="images/34ff463a-9dd7-484c-bc05-dd0cf7aa32db.png" />
 
 Giờ là bảy giờ kém mười rồi.

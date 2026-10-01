@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài oob cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Xem thử bài này có mấy lớp bảo vệ.
 
-<img width="350" height="201" alt="image" src="https://github.com/user-attachments/assets/34042d2b-62c5-49ba-aee1-691344fb661c" />
+<img width="350" height="201" alt="image" src="images/34042d2b-62c5-49ba-aee1-691344fb661c.png" />
 
 Không bất ngờ lắm.
 
@@ -56,14 +56,14 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 
 Ta thấy nó không khai báo `oob` nhưng lại sử dụng được. Khi double click vào ta thấy nó là biến toàn cục và nằm ở vùng **.data**.
 
-<img width="808" height="40" alt="image" src="https://github.com/user-attachments/assets/12c7b188-dae0-47ed-b839-58d82c554e7c" />
+<img width="808" height="40" alt="image" src="images/12c7b188-dae0-47ed-b839-58d82c554e7c.png" />
 
 Nó còn được gán sẵn `Hello, World!`. Tiếp đó là nó không hề kiểm tra offset mà ta nhập vào tức là ta có thể chạm vào tới bất kì đâu cũng được, chưa kể ta có thể ghi bất cứ gì vào bất cứ chỗ nào nữa. Bài này full lớp bảo vệ nên ta sẽ sử dụng leak libc và ROPchain.
 
 ## 2. Cách thực thi
 Đầu tiên là vô gdb để kiểm tra xem `oob` nó nằm ở vị trí nào để tìm offset leak Libc.
 
-<img width="999" height="258" alt="image" src="https://github.com/user-attachments/assets/3c2e0290-6941-47c8-900f-0bbfe21f6f56" />
+<img width="999" height="258" alt="image" src="images/3c2e0290-6941-47c8-900f-0bbfe21f6f56.png" />
 
 Ngay đằng sau nó là leak libc, còn đằng trước là binary. Tiện ác, giờ ta leak binary trước để sau này tiện tính offset, sau đó leak libc.
 
@@ -88,7 +88,7 @@ log.success(f"OOB address : {hex(oob_addr)}")
 
 Cái offset để tìm base và oob các bạn có thể dùng vmmap để tính nha.
 
-<img width="582" height="130" alt="image" src="https://github.com/user-attachments/assets/3415b227-5143-4343-a555-30cc3a4b8d81" />
+<img width="582" height="130" alt="image" src="images/3415b227-5143-4343-a555-30cc3a4b8d81.png" />
 
 Tiếp đến là leak libc.
 
@@ -101,7 +101,7 @@ log.success(f"Libc base : {hex(libc_base)}")
 
 Quên nói các bạn là bài này các bạn phải sử dụng pwninit để patch file này thì mới tìm được offset chuẩn, bên cạnh đó các bạn phải lấy file libc chuẩn nữa.
 
-<img width="1166" height="903" alt="image" src="https://github.com/user-attachments/assets/672c10f4-62e4-4825-a231-4d12e404173f" />
+<img width="1166" height="903" alt="image" src="images/672c10f4-62e4-4825-a231-4d12e404173f.png" />
 
 Sau khi có libc thì ta sẽ sử dụng 1 kĩ thuật là leak stack ( tự bịa ). Ta sẽ tìm `environ` và sau đó dùng nó để tìm ra saved RIP để ghi đè ROPchain vào.
 
@@ -115,7 +115,7 @@ log.success(f"stack leak : {hex(stack_ptr)}")
 
 Giờ làm sao để tìm được offset từ environ đến saved RIP ? Hãy làm lần lượt các bước sau
 
-<img width="848" height="635" alt="image" src="https://github.com/user-attachments/assets/62e564db-2713-471e-9bec-3a591c7d9dea" />
+<img width="848" height="635" alt="image" src="images/62e564db-2713-471e-9bec-3a591c7d9dea.png" />
 
 Vì là file patch nên nó sẽ bị ẩn đi mấy cái hàm như `main`, `start`,... Nhưng không sao, vì `main` luôn nằm ở `f 5` trong backtrack nên cứ thoải mái mà xài.
 

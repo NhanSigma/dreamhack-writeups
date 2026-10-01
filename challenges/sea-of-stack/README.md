@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Sea of Stack cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Vẫn như cũ
 
-<img width="397" height="216" alt="image" src="https://github.com/user-attachments/assets/fced40fa-81ea-4a6c-86f5-306e9662d2b6" />
+<img width="397" height="216" alt="image" src="images/fced40fa-81ea-4a6c-86f5-306e9662d2b6.png" />
 
 Giờ hãy đọc qua code như nào đã. Ta chỉ cần chú ý 3 thằng là
 
@@ -84,11 +84,11 @@ __int64 __fastcall read_input(__int64 a1, int a2)
 
 Tiếp theo là hàm `read_input`. Nó sẽ bắt chúng ta nhập đủ số lượng byte vào, ví dụ `return read_input((__int64)v1, 0x10000)` có nghĩa là phải nhập đủ `0x10000` byte vào. Nhưng ta có 1 vấn đề ở đây, vùng stack ta chỉ có thể ghi tối đa được 21000 byte thôi mà nó bắt ta nhập `0x10000` byte aka 65536 byte.
 
-<img width="688" height="207" alt="image" src="https://github.com/user-attachments/assets/9581e35b-be5b-4e26-ab38-8b07dd3ddebd" />
+<img width="688" height="207" alt="image" src="images/9581e35b-be5b-4e26-ab38-8b07dd3ddebd.png" />
 
 Nếu ta nhập vậy thì sẽ bị lỗi, nhưng không sao, ta có thể mở rộng ra bằng cách nhìn vào thằng main.
 
-<img width="590" height="107" alt="image" src="https://github.com/user-attachments/assets/ac69826a-af42-4e9f-ab0c-0c28aa0810e2" />
+<img width="590" height="107" alt="image" src="images/ac69826a-af42-4e9f-ab0c-0c28aa0810e2.png" />
 
 Mỗi lần nhảy vào hàm main thì ta sẽ được mở rộng thêm stack `0x30` byte, giờ ta chỉ cần nhảy vào nó đủ nhiều để mở rộng đến khi nhập đủ `0x10000` byte là được. Nhưng làm sao để nhảy vào `main` liên tục ?
 
@@ -148,7 +148,7 @@ p.send(payload)
 
 Thế là xong, bài này mình thấy cũng cũng thôi không có gì hết. Mỗi tội dockerfile với offset trong đây hơi ngu học tí 🐧. Thôi thì chill đi, nhớ cho mình 1 star để có động lực viết write up tiếp nha 🐧.
 
-<img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/1838653d-1e22-4e73-9748-387513ed8e74" />
+<img width="800" height="800" alt="image" src="images/1838653d-1e22-4e73-9748-387513ed8e74.png" />
 
 ## 3. Exploit
 

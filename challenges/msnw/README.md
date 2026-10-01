@@ -106,15 +106,15 @@ log.success(f'Leak RBP : {hex(leak_rbp)}')
 
 Vậy là xong, giờ ta cần tìm được chỉ của buf để hướng saved rbp đến nó và thực thi lệnh các lệnh mà ta đã ghi vào buf. Làm sao để tìm ư ? Hãy mở gdb lên và đặt breakpoint tại `read@plt` của `Meong`. Sau đó run và ni, nó sẽ bắt nhập chuỗi vào, cứ nhập đại đi rồi enter. Sau đó gõ `x/60gx 0x7fffffffdac0` xem đã ghi thành công chưa.
 
-<img width="711" height="532" alt="image" src="https://github.com/user-attachments/assets/9a3d3b9c-a5d5-47b7-abe4-d20d77f4e029" />
+<img width="711" height="532" alt="image" src="images/9a3d3b9c-a5d5-47b7-abe4-d20d77f4e029.png" />
 
 Giờ thì hãy bắt đầu phân tích nè. Khi chúng ta chạy xong `Meong` thì lúc return nó sẽ lấy saved rbp cha nó tức là saved rbp của `Call` để thay thế. Và sau khi `Call` return thì nó sẽ lấy saved rbp ông nội nó tức là saved rbp của `echo` để thay vào. Lúc nãy chúng ta đã tìm ra được 2 byte thấp nhất của saved rbp `Call` tức là saved rbp ông nội, vậy chúng ta chỉ cần tìm ra offset là ra được địa chỉ buf.
 
-<img width="1251" height="114" alt="image" src="https://github.com/user-attachments/assets/f8a6422e-9972-48cc-a471-ef0d02428f7b" />
+<img width="1251" height="114" alt="image" src="images/f8a6422e-9972-48cc-a471-ef0d02428f7b.png" />
 
 Vẫn là terminal lúc nãy, ta quan sát. Mình sẽ nói từ trái sang phải. RBP hiện tại -> RBP Call -> RBP Echo. Cái này không phải là RBP của hàm đó mà chỉ là RBP trỏ tới stack frame của hàm đó thôi nên RBP Echo là saved rbp của Call ( là cái ta đã leak ). Tính offset thì dễ thôi, `offset = địa chỉ RBP - địa chỉ ban đầu của buf`. Tại sao có địa chỉ ban đầu của buf rồi mà vẫn phải tìm ? Vì khi chúng ta chạy lại lần nữa thì cái đó sẽ bị thay đổi nên ta cần tìm offset để tính ra vị trí.
 
-<img width="526" height="52" alt="image" src="https://github.com/user-attachments/assets/59a39ed0-47c2-4b57-b976-2d9a0ef24cdc" />
+<img width="526" height="52" alt="image" src="images/59a39ed0-47c2-4b57-b976-2d9a0ef24cdc.png" />
 
 Vậy là xong ta đã có đầy đủ hết rồi hãy cook bài này thôi.
 

@@ -87,7 +87,7 @@ unsigned __int64 __fastcall sub_15ED(__int64 a1)
 
 Về cơ bản thì có 2 lỗi chính là leak memory từ `v0` và **UAF**. Giờ mình sẽ nói qua về việc leak `v0`. Khi nó yêu cầu chúng ta nhập long int vào 1 biến mà chúng ta nhập `+, -` thì nó sẽ không ghi bất cứ giá trị nào vào đó. Trùng hợp thay thì khi chúng ta nhập vậy thì nó sẽ thực hiện câu lệnh `printf("%ld is invalid choice, please try again.\n", v0);`. Giờ kiểm tra xem `v0` ban đầu là gì đã.
 
-<img width="900" height="219" alt="image" src="https://github.com/user-attachments/assets/d56a13dc-8075-4e62-8e3a-dc6155c7c97c" />
+<img width="900" height="219" alt="image" src="images/d56a13dc-8075-4e62-8e3a-dc6155c7c97c.png" />
 
 Tại vị trí `v0` là 1 libc, vậy là chúng ta sẽ leak được libc dưới dạng chuỗi số nguyên.
 
@@ -153,7 +153,7 @@ rbp = leak_stack - 0x138 - 0x50
 log.success(f'RBP : {hex(rbp)}')
 ```
 
-<img width="1145" height="502" alt="image" src="https://github.com/user-attachments/assets/eb0edad3-b7b8-422e-ac02-f18e584c9875" />
+<img width="1145" height="502" alt="image" src="images/eb0edad3-b7b8-422e-ac02-f18e584c9875.png" />
 
 Sau khi có stack thì mình sẽ lựa chọn `RIP` của 1 thằng nào đó ghi **ROPchain** vào. Ta không thể ghi vào thằng `main` được vì nó sẽ `call exit(0)` thay vì `return 0` nên sẽ không thực thi chuỗi **ROPchain** của mình. Vì thế mình chọn của thằng `update` luôn để khi ghi vào là ra shell luôn.
 
@@ -175,11 +175,11 @@ payload += p64(libc.symbols['system'])
 create(4, payload)
 ```
 
-<img width="1043" height="254" alt="image" src="https://github.com/user-attachments/assets/b1e0a0f1-b981-42b9-b649-ee724663851a" />
+<img width="1043" height="254" alt="image" src="images/b1e0a0f1-b981-42b9-b649-ee724663851a.png" />
 
 Bùm nổ shell.
 
-<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/50021627-520b-4100-bbbc-5e1113f3c943" />
+<img width="800" height="450" alt="image" src="images/50021627-520b-4100-bbbc-5e1113f3c943.png" />
 
 Bài này thực ra lúc đầu mình làm là **FSOP** vì không đủ note để vừa leak libc vừa leak environ vừa ghi vào RIP. Mình đọc write up của người khác và thấy họ leak libc bằng cách ghi `+` lúc chọn menu nên mình đã làm thêm 1 solve mới để thử. Thôi thì cảm ơn các bạn đã đọc hãy cho mình 1 star để có động lực viết tiếp nha chứ dạo này mình hơi bị lười viết rồi đó 🐧.
 

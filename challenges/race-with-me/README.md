@@ -72,7 +72,7 @@ Vậy mục tiêu của chúng ta là thực thi `if ( qword_4030 == 3735928559L
 ## 2. Cách thực thi
 Khi chạy bài này nó sẽ cho chúng ta 4 option lần lượt như sau :
 
-<img width="198" height="121" alt="image" src="https://github.com/user-attachments/assets/ab1abdd4-d762-4ea5-b7a9-071a1fa732b2" />
+<img width="198" height="121" alt="image" src="images/ab1abdd4-d762-4ea5-b7a9-071a1fa732b2.png" />
 
 1. Là nhập giá trị vào mà chúng ta sẽ thực hiện
 2. Là bắt đầu thực thi hàm `start_routine`

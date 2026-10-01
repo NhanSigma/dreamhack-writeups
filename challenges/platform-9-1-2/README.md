@@ -62,7 +62,7 @@ __int64 __fastcall main(__int64 a1, char **a2, char **a3)
 
 Chúng ta có lỗi **OOB** ở ngay `v7`. Cơ chế nó như sau : nó sẽ `puts` giá trị mà tại địa chỉ `v7-1` trỏ vào. Ví dụ tại vị trí 0 stack đang có địa chỉ là `A` mà `A` lại trỏ vào `B` thì nó sẽ in ra `B`. Vậy thì ta chỉ cần kiểm tra stack xem địa chỉ trỏ vào nào xài được thì sẽ tính toán khoảng cách và in ra.
 
-<img width="865" height="780" alt="Image" src="https://github.com/user-attachments/assets/fbee6531-f0f6-40cd-ab54-c98371a52897" />
+<img width="865" height="780" alt="Image" src="images/fbee6531-f0f6-40cd-ab54-c98371a52897.png" />
 
 Từ `0x7fffffffdbd0` đến `0x7fffffffdc18` chính là biến `s`. Bởi vì 
 
@@ -86,7 +86,7 @@ Nó sẽ copy tất cả nội dung của `buf` vào vị trí `s[v7-1]` đang t
 ## 2. Cách thực thi
 Đầu tiên là leak binary đã. Ta biết được tại `0x7fffffffdca0` chứa con trỏ trỏ vào `0x555555555140`. Vậy thì ta cần tính offset xem `v7` nên là bao nhiêu.
 
-<img width="643" height="49" alt="Image" src="https://github.com/user-attachments/assets/d35339a7-875c-4db2-bba2-c82a500f5cf7" />
+<img width="643" height="49" alt="Image" src="images/d35339a7-875c-4db2-bba2-c82a500f5cf7.png" />
 
 Vậy suy ra `v7` sẽ là 27 vì phải -1 nữa.
 

@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài newstrcmp cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Ta hãy xem bài này có gì
 
-<img width="415" height="188" alt="image" src="https://github.com/user-attachments/assets/90539c38-f9c4-4424-a964-df11c8e623b7" />
+<img width="415" height="188" alt="image" src="images/90539c38-f9c4-4424-a964-df11c8e623b7.png" />
 
 Bài này có Canary và No PIE. Hãy thử đọc code xem nó như nào.
 
@@ -101,7 +101,7 @@ _DWORD *__fastcall newstrcmp(const char *a1, __int64 a2, _DWORD *a3)
 
 Chúng ta thấy rằng nó chỉ kiểm tra xem 2 chuỗi có khớp không, thêm vào đó nó không thề kiểm tra độ dài của chuỗi `s2`. Giờ chúng ta sẽ mò vô gdb 1 tí. Mở gdb lên và start, sau đó đặt breakpoint sau lần nhập chuỗi `s2`.
 
-<img width="722" height="718" alt="image" src="https://github.com/user-attachments/assets/678c03f8-f351-488b-9252-e60ce733125b" />
+<img width="722" height="718" alt="image" src="images/678c03f8-f351-488b-9252-e60ce733125b.png" />
 
 Mình nhập `s1` là `AAAA` và `s2` là `BBBB`. Và nhìn đi bất ngờ là Canary nằm đằng cách `s2` 16 byte. Sẽ ra sao nếu ta lợi dụng vòng lặp + hàm so sánh này brute force Canary ?
 

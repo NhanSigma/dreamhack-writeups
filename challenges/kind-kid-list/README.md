@@ -95,7 +95,7 @@ Khi nhập tên vào danh sách trẻ ngoan, ta sẽ nhập vào `v16`, và sau 
 ## 2. Cách thực thi
 Đầu tiên là leak password. Ta cần tìm được offset từ `v2` đến `ptr` để tính ra offset.
 
-<img width="807" height="641" alt="image" src="https://github.com/user-attachments/assets/03e800f3-7d5d-410d-b765-6914ff966e1c" />
+<img width="807" height="641" alt="image" src="images/03e800f3-7d5d-410d-b765-6914ff966e1c.png" />
 
 Vì chỉ có mình `ptr` trỏ vào heap nên nhìn vào là ta thấy được đó là vị trí `0x7fffffffdc98`. Công thức tính offset mình đã có đề cập ở các bài trước rồi. Đó là ` ( offset / 8 ) + 6 `. Vậy offset là 31, ta sẽ ghi là `%31$s` để in password ra.
 

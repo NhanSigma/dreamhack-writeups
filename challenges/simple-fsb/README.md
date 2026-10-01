@@ -50,11 +50,11 @@ Vậy ta chỉ cần tìm được địa chỉ của thằng `flag_buf`, sau đ
 ## 2. Cách thực thi
 Đầu tiên ta cần tìm được PIE đã, nhìn vào stack sau khi nhập `buf`
 
-<img width="707" height="181" alt="image" src="https://github.com/user-attachments/assets/dc140a16-b7c4-45ef-848b-1eb6b77f2ec8" />
+<img width="707" height="181" alt="image" src="images/dc140a16-b7c4-45ef-848b-1eb6b77f2ec8.png" />
 
 Ta thấy tại vị trí `0x7fffffffdde0`, ta thấy `main+135` là `0x000055555555543e`. Ta có thể tính offset bằng cách gõ vmmap sau đó lấy giá trị `0x000055555555543e` - base PIE là ra.
 
-<img width="576" height="52" alt="image" src="https://github.com/user-attachments/assets/cd3ecc7c-df66-4e47-80cc-23bb91f73d90" />
+<img width="576" height="52" alt="image" src="images/cd3ecc7c-df66-4e47-80cc-23bb91f73d90.png" />
 
 Giá trị hơi khác tí do mình xài attach nhưng offset đều như nhau cả thôi.
 
@@ -84,7 +84,7 @@ Tại sao lại là `%7$s....` ? `%7$s` là để đọc vào vị trí tiếp t
 
 Vậy là xong, bài này khá là dễ. Nó chỉ luyện thêm trình đọc gdb và dùng **Format String** thôi. Hãy cho mình 1 star để có động lực viết tiếp nha 🐧.
 
-<img width="265" height="85" alt="image" src="https://github.com/user-attachments/assets/be4ee57a-ccc9-40de-9abd-228512eb7dc7" />
+<img width="265" height="85" alt="image" src="images/be4ee57a-ccc9-40de-9abd-228512eb7dc7.png" />
 
 ## 3. Exploit
 

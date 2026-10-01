@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài NullNull cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Vẫn là tiết mục cũ thôi
 
-<img width="374" height="205" alt="image" src="https://github.com/user-attachments/assets/18a11aab-f3c8-424f-a4e6-fa27766c7de8" />
+<img width="374" height="205" alt="image" src="images/18a11aab-f3c8-424f-a4e6-fa27766c7de8.png" />
 
 Tiếp theo là phần code
 
@@ -79,7 +79,7 @@ __int64 __fastcall sub_13FF(__int64 a1)
 
 Đầu tiên là ta có lỗi **Off by one** ở hàm `sub_13BD`, nó sẽ ghi đè byte null lên RBP của chúng ta. Vô tình hay thì biến `a1` và `a2` được khởi tạo bằng `rbp -`.
 
-<img width="650" height="52" alt="image" src="https://github.com/user-attachments/assets/15c3dc65-67c1-46ee-9298-1512bdc88fc8" />
+<img width="650" height="52" alt="image" src="images/15c3dc65-67c1-46ee-9298-1512bdc88fc8.png" />
 
 Vậy sẽ ra sao nếu RBP của chúng ta bị thay đổi ? Lỡ như ta thay RBP bằng fake RBP và khi quay lại `sub_12F0`, lúc này `a1` thay vì sẽ khởi tạo bằng `rbp - 0x18` thì nó sẽ khởi tạo bằng `fake rbp - 0x18`. Lúc này hay vì `a1` bị giới hạn là 32 byte như code sau.
 
@@ -99,11 +99,11 @@ Thì nó sẽ thành 1 giới hạn khác tùy vào vị trí `fake rbp - 0x18` 
 
 Mình đã chạy thử và ta có như sau
 
-<img width="424" height="126" alt="image" src="https://github.com/user-attachments/assets/043a9709-1de6-4eb1-a278-51f0aa396e88" />
+<img width="424" height="126" alt="image" src="images/043a9709-1de6-4eb1-a278-51f0aa396e88.png" />
 
 Fake RBP mình đã biến thành `0x7fffb721ff00`, ta thấy `0x7fffb721ff00 - 0x18` trỏ vào `0x00005a5cc6709419` = 99354512757785 byte. Vậy là `a1` không còn bị giới hạn ở 32 byte nữa. Tiếp theo là `a2` aka điểm định vị stack frame `0x7fffb721ff00 - 0x20` trỏ vào `0x00007fffb721ff10`. Vậy ta sẽ có stack như sau.
 
-<img width="942" height="722" alt="image" src="https://github.com/user-attachments/assets/62a0d05d-684d-4920-8d98-226141a9f254" />
+<img width="942" height="722" alt="image" src="images/62a0d05d-684d-4920-8d98-226141a9f254.png" />
 
 Dựa vào stack như sau ta sẽ dễ dàng tìm được các index để leak thôi. Giờ làm sao để get shell thì khi mới bắt đầu chạy, chương trình sẽ khởi tạo RBP chuẩn là `0x7fffb721ff40`, sau đó nó sẽ cất vô 1 góc, lúc này RIP cũng sẽ khởi tạo luôn là `0x7fffb721ff48`. Nhưng chúng ta đã **Off by one** nên RBP đã bị nát. Nhưng RIP khởi tạo ban đầu vẫn giữ nguyên nên nó vẫn là `0x7fffb721ff48`. Vậy ta chỉ cần ghi đè ROPchain vô đó là xong.
 

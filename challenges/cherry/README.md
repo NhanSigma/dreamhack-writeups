@@ -70,11 +70,11 @@ Ta chỉ cần quan tâm hàm `main` và `flag` thôi. Trong main thì nó khai 
 
 `if(!strncmp(buf, "cherry", 6))`, nếu 6 byte đầu tiên của `buf` = `fruit` = `cherry` thì nó sẽ thực thi khối lệnh if này. Vậy nên payload đầu tiên chúng ta sẽ gửi đó là `cherry`. Sau đó nó sẽ bắt các bạn nhập vào `fruit`, nhưng các bạn đâu biết nên nhập bao nhiêu để đè tới `saved RIP` ? Vậy thì chúng ta hãy bắt tay vô tìm offset thôi. Bài này nó không có Canary
 
-<img width="381" height="173" alt="image" src="https://github.com/user-attachments/assets/9564ea1a-9ba7-45ac-9ecb-03a0d2a554bc" />
+<img width="381" height="173" alt="image" src="images/9564ea1a-9ba7-45ac-9ecb-03a0d2a554bc.png" />
 
 Nên chúng ta có thể tự tin tính nhẩm để ra. Để mình vẽ stack ra cho các bạn dễ hình dung. Khi chạy chúng nó bỏ từ trên xuống dưới nhưng mình sẽ lật ngược lại cho các bạn dễ hình dung.
 
-<img width="305" height="477" alt="image" src="https://github.com/user-attachments/assets/b3c0c11a-fae3-4e52-a8b2-35c887634a7e" />
+<img width="305" height="477" alt="image" src="images/b3c0c11a-fae3-4e52-a8b2-35c887634a7e.png" />
 
 Vì chúng ta nhập từ `fruit` nên cứ kệ mẹ `buf` đi. Giờ bắt đầu tính nhẩm nè : `fruit` là 6 + `buf_size` là 4 + `stdout_fd` là 4 + `stdin_fd` là 4 + `saved RBP` là 8 => tổng cộng là 26. Very simple.
 

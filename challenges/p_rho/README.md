@@ -44,7 +44,7 @@ Thì cái `buf[i]`, nó chạy giống như vậy nè. Ví dụ buf[0] thì nó 
 
 Ta có công thức sau : `(index * 8) = buf_add - printf_add`. Tại sao lại nhân 8 ? Bởi vì mảng thường là 1 vị trí là 8 byte nên index phải nhân 8 để ra đúng offset. Và buf_add kiếm đâu ra ? Thì các bạn hãy gõ lệnh sau `nm ./prob | grep buf` là ra được nha.
 
-<img width="475" height="48" alt="image" src="https://github.com/user-attachments/assets/77d4199b-e0d8-4150-b1a1-41fd505fe19f" />
+<img width="475" height="48" alt="image" src="images/77d4199b-e0d8-4150-b1a1-41fd505fe19f.png" />
 
 Vậy sau khi có được index rồi chúng ta sẽ trỏ được vào printf@got và thay nó bằng địa chỉ win là xong, khá đơn giản đúng không. Hãy cho mình 1 star để có động lực viết tiếp write up nha 🐧.
 

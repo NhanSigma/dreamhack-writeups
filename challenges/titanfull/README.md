@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Titanfull cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Giờ ta xem thử bài này có các lớp bảo vệ gì
 
-<img width="345" height="183" alt="image" src="https://github.com/user-attachments/assets/4550241a-2554-4c70-aab8-2e08806bf8fe" />
+<img width="345" height="183" alt="image" src="images/4550241a-2554-4c70-aab8-2e08806bf8fe.png" />
 
 Gần như bật full, không bất ngờ lắm. Giờ mổ xẻ thử code thôi.
 
@@ -110,7 +110,7 @@ read(0, buf, 0x30uLL);
 
 Chúng ta có thể dùng `%X$p` để leak Canary và Libc nếu tìm được X. Mình đã thử mò trong gdb. Các bạn hãy mở gdb lên, đặt breakpoint sau `read buf`. Sau đó gõ `x/60xg $rsp`.
 
-<img width="714" height="697" alt="image" src="https://github.com/user-attachments/assets/e7a4faaa-3497-4e1b-a8e8-206e46404cf9" />
+<img width="714" height="697" alt="image" src="images/e7a4faaa-3497-4e1b-a8e8-206e46404cf9.png" />
 
 Mình nhập tên pilot là `AAAA` nên nó nằm ở `0x7fffffffde50`. Ta thấy Canary nằm ở `0x7fffffffde90` và Leak Libc nằm ở `0x7fffffffdeb0` ( đây là libc_start_main ). Ta có thể nhờ Gemini tính toán offset dùm. Nó sẽ là `%17$p` và `%21$p`. 
 
@@ -128,11 +128,11 @@ log.success(f"Libc Leak: {hex(libc_leak)}")
 
 Tiếp theo là tính toán Libc base. Bài này khá là lỏ vì mình đã build **Dockerfile** từ bài nhưng `libc.so.6` vẫn khác với host, nên mình đã chạy xem thử đuôi của `libc_start_main` chương trình là gì và tìm nó trên `libc.rip`.
 
-<img width="370" height="47" alt="image" src="https://github.com/user-attachments/assets/5b9f73a3-8ee2-42ac-922e-fb88c863fa2b" />
+<img width="370" height="47" alt="image" src="images/5b9f73a3-8ee2-42ac-922e-fb88c863fa2b.png" />
 
 Đuôi là 083, giờ thì hãy vô `libc.rip` điền vào như sau.
 
-<img width="1274" height="355" alt="image" src="https://github.com/user-attachments/assets/225023eb-3abb-42d3-ac32-81b89e0abda8" />
+<img width="1274" height="355" alt="image" src="images/225023eb-3abb-42d3-ac32-81b89e0abda8.png" />
 
 Mình cũng đã nhờ Gemini chọn dùm mình và nó đã chọn `libc6_2.31-0ubuntu9.9_amd64`, và tuyệt vời hơn nó cung cấp cho mình luôn `offset` mà không cần phải tải ( cảm ơn bé Gemini-loli ).
 

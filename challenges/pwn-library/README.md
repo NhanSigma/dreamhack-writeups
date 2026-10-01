@@ -198,7 +198,7 @@ void main(){
 
 Khi chạy bài này, chương trình sẽ in ra menu như sau
 
-<img width="291" height="163" alt="image" src="https://github.com/user-attachments/assets/7f3911a2-7946-4d14-b963-98d62e441d59" />
+<img width="291" height="163" alt="image" src="images/7f3911a2-7946-4d14-b963-98d62e441d59.png" />
 
 1. Borrow book: Cấp phát bộ nhớ ( malloc ) để tạo sách mới.
 2. Read book: Đọc nội dung sách tại index chỉ định.

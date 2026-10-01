@@ -85,11 +85,11 @@ Lúc này, libc cộng thêm 0xE0 để tìm `_wide_vtable` thì: F - 0x10 + 0xE
 
 Hàm `doallocate` nằm ở offset 0x68 của `vtable`. Vậy vị trí cuối cùng của nó sẽ là: F + 0x10 + 0x68 = F + 0x78. Tại đây, ta tự tin phang địa chỉ của `system` vào.
 
-<img width="1324" height="485" alt="image" src="https://github.com/user-attachments/assets/05d67e31-99d2-4502-9207-83fe3da7bea1" />
+<img width="1324" height="485" alt="image" src="images/05d67e31-99d2-4502-9207-83fe3da7bea1.png" />
 
 Ngoài ra, ở vị trí 0x88 có một cái con trỏ tên là `_lock`. Nếu bạn đè trúng nó bằng null byte thì sẽ bị Segfault ngay. Nên ta trỏ nó vào một vùng trống có quyền ghi ngay trong payload luôn ( ví dụ F + 0x80 ). Tham số truyền vào cho `system` sẽ nằm ngay tại offset 0x00, ta ghi chuỗi `  sh` vào đó là xong.
 
-<img width="1655" height="487" alt="image" src="https://github.com/user-attachments/assets/387e37c6-f1f1-4d4d-8f6a-c5735499dd7a" />
+<img width="1655" height="487" alt="image" src="images/387e37c6-f1f1-4d4d-8f6a-c5735499dd7a.png" />
 
 Sau khi gửi xong payload thì nó sẽ như vậy, giờ chỉ cần chạy tới `puts` là nó nhả shell ra luôn. Như mình nói bài này nó giống tutorial **FSOP** vậy nên khá là dễ, nó giúp anh em hiểu rõ bản chất của con trỏ trong struct C, nhìn có vẻ rối nhưng tự tính tay vài lần là quen.
 

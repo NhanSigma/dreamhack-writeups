@@ -10,11 +10,11 @@ Hướng dẫn cách giải bài c4nary in the lake cho anh em mới chơi pwnab
 ## 1. Mục tiêu cần làm
 Vẫn như mọi khi thôi
 
-<img width="305" height="158" alt="image" src="https://github.com/user-attachments/assets/f43d5a86-5156-4cf9-8053-f2371d271829" />
+<img width="305" height="158" alt="image" src="images/f43d5a86-5156-4cf9-8053-f2371d271829.png" />
 
 Giờ tới phần đọc code, vì code khá dài nên mình sẽ chỉ show ra các code có lỗi thôi. Đầu tiên là hệ thống của bài, nó gồm `memo_len` và `diagnostics`.
 
-<img width="431" height="34" alt="image" src="https://github.com/user-attachments/assets/24aae861-db09-4b15-9e80-21d773501859" />
+<img width="431" height="34" alt="image" src="images/24aae861-db09-4b15-9e80-21d773501859.png" />
 
 ```C
 unsigned __int64 __fastcall do_read_memo(__int64 a1)
@@ -116,9 +116,9 @@ p.sendlineafter(b'> ', b'2')
 
 Trong bài nó đã cho ta 1 cột mốc để biết nên lụm đến đâu.
 
-<img width="715" height="366" alt="image" src="https://github.com/user-attachments/assets/539bdbdc-59d6-4dbb-8a29-34659e06f17a" />
+<img width="715" height="366" alt="image" src="images/539bdbdc-59d6-4dbb-8a29-34659e06f17a.png" />
 
-<img width="832" height="631" alt="image" src="https://github.com/user-attachments/assets/e4ff7d0b-3457-4fc0-85a1-8f74e0b3300d" />
+<img width="832" height="631" alt="image" src="images/e4ff7d0b-3457-4fc0-85a1-8f74e0b3300d.png" />
 
 Đằng trước stack với Canary là 1 loạt kí hiệu `"...`, đây là cột mốc để ta dừng chân.
 

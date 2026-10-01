@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài byte_challenge cho anh em mới chơi pwnable.
 ## 1.Mục tiêu cần làm
 Đầu tiên xem các lớp bảo vệ có gì
 
-<img width="338" height="175" alt="image" src="https://github.com/user-attachments/assets/e247bc71-54a0-48c6-8304-493a51d0c47f" />
+<img width="338" height="175" alt="image" src="images/e247bc71-54a0-48c6-8304-493a51d0c47f.png" />
 
 No canary, và full các lớp bảo vệ. Nó không quan trọng lắm đâu vì tí nữa bài sẽ cho mình chọn 1 vùng có quyền RWX. Giờ bắt đầu đọc code thôi. Ta chỉ cần chú ý các hàm chính sau đây.
 
@@ -110,15 +110,15 @@ Trước tiên các bạn hãy build dockerfile ra, lấy file libc và dùng pw
 
 Đầu tiên là lỗi **Format String**, mình sẽ dùng nó để in ra Leak libc, Binary. Mở gdb lên và đặt breakpoint ở chỗ read khúc nhập tên, vì file này bị mã hóa nên các bạn không xài được tên hàm đâu. Sử dụng cái số sau `sub_xxxx` + PIE base ở vmmap là ra được vị trí ở đó. Sau đó hãy gõ `x/i địa chỉ`.
 
-<img width="989" height="537" alt="image" src="https://github.com/user-attachments/assets/02244296-ebe4-4439-aaed-983d24b5c165" />
+<img width="989" height="537" alt="image" src="images/02244296-ebe4-4439-aaed-983d24b5c165.png" />
 
 Đặt breakpoint sau read và sau đó chạy để xem stack như nào.
 
-<img width="723" height="481" alt="image" src="https://github.com/user-attachments/assets/16174ffb-98ca-4e0b-8a3d-5f6aa4a3f3ca" />
+<img width="723" height="481" alt="image" src="images/16174ffb-98ca-4e0b-8a3d-5f6aa4a3f3ca.png" />
 
 Ta thấy được leak libc nằm ở `0x7ffff7dba000` và leak binary nằm ở `0x0000555555555641`.
 
-<img width="1165" height="318" alt="image" src="https://github.com/user-attachments/assets/e1164dc6-2f7b-495c-b3a8-1335ac06bdb5" />
+<img width="1165" height="318" alt="image" src="images/e1164dc6-2f7b-495c-b3a8-1335ac06bdb5.png" />
 
 Sau khi có được Binary và libc rồi thì hãy tạo ROPchain và nhập vùng thực thi vào thôi.
 
@@ -155,15 +155,15 @@ binsh = libc_base + 0x1d8678
 
 Ok đã xong khâu chuẩn bị, giờ bắt tay vô băm phần khó nhất nè. Giờ ta phải tìm địa chỉ của các lệnh if trong 3 hàm stage 1 2 3.
 
-<img width="874" height="488" alt="image" src="https://github.com/user-attachments/assets/bdefbc89-6da9-430e-9ab0-1e7d9623bb1e" />
+<img width="874" height="488" alt="image" src="images/bdefbc89-6da9-430e-9ab0-1e7d9623bb1e.png" />
 
 Stage 1 lệnh if ở `0x55555555549f`.
 
-<img width="860" height="493" alt="image" src="https://github.com/user-attachments/assets/28db3b7a-3f6a-46c9-9af5-3d915985d154" />
+<img width="860" height="493" alt="image" src="images/28db3b7a-3f6a-46c9-9af5-3d915985d154.png" />
 
 Stage 2 lệnh if ở `0x55555555552d`.
 
-<img width="797" height="865" alt="image" src="https://github.com/user-attachments/assets/5bcd5523-db5a-4d56-8d31-b3a857254045" />
+<img width="797" height="865" alt="image" src="images/5bcd5523-db5a-4d56-8d31-b3a857254045.png" />
 
 Stage 3 lệnh if ở `0x5555555555e0`
 
@@ -171,7 +171,7 @@ Giờ ta sẽ thay tất cả đuôi thành `0xeb`, nó sẽ biến lệnh `JE` 
 
 Giờ ta sẽ thay đổi số lượng byte nhập vào ở stage 4 từ 64 byte thành 36 + 18 + 201 aka `0xff` byte. Quá nhiều để ta ghi đè tới RIP và thay nó bằng ROPchain.
 
-<img width="857" height="365" alt="image" src="https://github.com/user-attachments/assets/57f83cdc-ed5f-4672-9b91-998ae5ffd736" />
+<img width="857" height="365" alt="image" src="images/57f83cdc-ed5f-4672-9b91-998ae5ffd736.png" />
 
 Ta sẽ thấy ở `0x55555555562c` nó là lệnh khởi tạo 64 byte để nhập vô cho buf, để thay đổi 64 thành 255, ta sẽ thay đổi ở vị trí `0x55555555562d`. Vì sao lại là `562d` mà không phải `562c` ? Vì `562c` là lệnh mov edx, còn `562d` là `0x40`.
 
@@ -201,7 +201,7 @@ p.sendafter(b'[*] Stage 4', payload)
 
 Bài này khá rối rắm vì code khá dài và lâu ở chỗ tìm offset tới từng stage. Nhưng cũng không quá khó, mình đánh giá bài này 18 trên thang 36 🐧. Các bạn cho mình 1 star để ủng hộ mình ra write up mới nha 🐧. Gud luck my fen.
 
-<img width="569" height="600" alt="image" src="https://github.com/user-attachments/assets/a5e9d053-8a93-4386-9cd1-5ab7d4bc3cc8" />
+<img width="569" height="600" alt="image" src="images/a5e9d053-8a93-4386-9cd1-5ab7d4bc3cc8.png" />
 
 ## 3. Exploit
 ```Python

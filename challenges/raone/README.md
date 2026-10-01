@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài raone cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Đầu tiên ta hãy xem qua các lớp bảo vệ
 
-<img width="384" height="204" alt="image" src="https://github.com/user-attachments/assets/048c4182-495b-47ea-9de3-419de49dcaf8" />
+<img width="384" height="204" alt="image" src="images/048c4182-495b-47ea-9de3-419de49dcaf8.png" />
 
 No PIE với No Canary là bú vội, giờ hãy đọc code của nó nào.
 
@@ -37,7 +37,7 @@ Vì vùng `.bss` bài này khá lỏ nên mình sẽ vừa giải thích vừa n
 
 Ý tưởng của mình là như vậy
 
-<img width="792" height="621" alt="image" src="https://github.com/user-attachments/assets/c23908c6-fd95-4577-9835-b95c65dfd565" />
+<img width="792" height="621" alt="image" src="images/c23908c6-fd95-4577-9835-b95c65dfd565.png" />
 
 Mình sẽ nhập RBP là `bss + 0x30` và RIP là `read` để khi nó chạy lệnh `read` nó sẽ ghi vào đầu bss bởi vì `read` nó sẽ ghi tại vị trí `rbp - 0x30`. Sau đó khi `read` xong nó sẽ thực thi tiếp các lệnh dưới nó ví dụ như `puts(aBye);`, `return 0`.
 
@@ -104,11 +104,11 @@ payload2 += p64(leave_ret)
 
 Tại sao mình lại đặt tận 2 cái ret ? Khi mình chạy và đặt bp tại `leave, ret` của main. Mình thấy RSP nó trỏ thẳng vào `bin/sh` chứ không phải lệnh `ret` mà mình đặt ban đầu.
 
-<img width="1015" height="222" alt="image" src="https://github.com/user-attachments/assets/8403565b-d44f-437f-9bc8-728ca474796e" />
+<img width="1015" height="222" alt="image" src="images/8403565b-d44f-437f-9bc8-728ca474796e.png" />
 
 Sẽ có vài người nói là sao không chỉnh xuống `bss - 0x18` đi. Thì khi chỉnh xuống đó thì nó sẽ chạy lệnh `ret` và `pop rdi` nhưng có 1 vấn đề phát sinh ở đây.
 
-<img width="1301" height="370" alt="image" src="https://github.com/user-attachments/assets/5b9c594c-132a-4b48-82b6-5ec8fdb1db1b" />
+<img width="1301" height="370" alt="image" src="images/5b9c594c-132a-4b48-82b6-5ec8fdb1db1b.png" />
 
 Đây là vấn đề của nó, **alignment 16-byte**. Nên mình quyết định đặt thêm 1 cái `ret` nữa để căn chỉnh lại. Đó là lí do mình đặt 2 cái ret đó.
 
@@ -116,7 +116,7 @@ Sẽ có vài người nói là sao không chỉnh xuống `bss - 0x18` đi. Th�
 
 Bài này đến đây là xong rồi. Cũng khá là khó vì kĩ thuật **Double Leave**. Nhưng cũng khá hay vì mình học thêm kĩ thuật mới. Hãy cho mình 1 star để có động lực viết tiếp nha. Nhân tiện cũng chúc mọi người năm mới vui vẻ, an khang thịnh vượng, vạn sự như ý, tiền vô như nước sông Đà, tiền ra nhỏ giọt như cà phê phin !!! 🐧.
 
-<img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/28e75f1e-3fee-4d43-8cbb-232496a5a1bc" />
+<img width="960" height="540" alt="image" src="images/28e75f1e-3fee-4d43-8cbb-232496a5a1bc.png" />
 
 ## 3. Exploit
 ```Python

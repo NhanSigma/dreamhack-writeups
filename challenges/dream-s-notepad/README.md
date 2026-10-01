@@ -16,7 +16,7 @@ Hướng dẫn cách giải bài Dream's Notepad cho anh em mới chơi pwnable.
 ## 2. Cách thực thi
 Đầu tiên hãy kiểm tra xem bài này có các lớp bảo mật nào.
 
-<img width="372" height="142" alt="image" src="https://github.com/user-attachments/assets/455a0d4f-2e75-4739-9cc3-7c4a8416462f" />
+<img width="372" height="142" alt="image" src="images/455a0d4f-2e75-4739-9cc3-7c4a8416462f.png" />
 
 Không có Canary, không PIE và không NX vậy là khá dễ. Giờ hãy bắt đầu đọc code bài này thôi.
 
@@ -108,13 +108,13 @@ Nhiều bạn sẽ thắc mắc là tại sao padding tận 488 vậy thì để
 
 Sau khi in ra địa chỉ của `got_read` thì chúng ta sẽ tính `Libc base`. Nhưng mà mình chỉ mới chỉ các bạn tìm ra địa chỉ thôi còn offset của `read_got` thì mình chưa chỉ, vì không có file `libc` nên chúng ta sẽ nhờ đến trang web `libc.rip` để đò offset. Khi vô các bạn hãy nhập `read` và 3 số đuôi cuối của địa chỉ read.
 
-<img width="661" height="85" alt="image" src="https://github.com/user-attachments/assets/0ad99500-b068-4253-b98c-84688405c7aa" />
+<img width="661" height="85" alt="image" src="images/0ad99500-b068-4253-b98c-84688405c7aa.png" />
 
 Sau khi search thì nó sẽ cho các bạn chọn thư viện `libc`, giờ thì chúng ta nên chọn cái nào đây ?
 
 Các bạn hãy gõ lệnh `strings ./Notepad | grep 'ubuntu` và nó sẽ hiện ra phiên bản ubuntu của bài này.
 
-<img width="633" height="36" alt="image" src="https://github.com/user-attachments/assets/09dd50db-84cb-4e1f-8ef7-524372689dfd" />
+<img width="633" height="36" alt="image" src="images/09dd50db-84cb-4e1f-8ef7-524372689dfd.png" />
 
 Dòng này cho ta biết 2 điều cực kỳ quan trọng:
 1. Hệ điều hành: Chương trình được biên dịch trên Ubuntu 16.04.
@@ -122,7 +122,7 @@ Dòng này cho ta biết 2 điều cực kỳ quan trọng:
 
 Vậy chúng ta chỉ chọn thư viện `libc` nào có tên là `libc6_2.23` và trùng hợp chỉ có đúng 1 thư viện là `libc6_2.23-0ubuntu11.3_amd64`. Bấm vào và ta sẽ ra được như vậy
 
-<img width="453" height="121" alt="image" src="https://github.com/user-attachments/assets/1ec29eed-8596-41be-bd63-955be293e7b9" />
+<img width="453" height="121" alt="image" src="images/1ec29eed-8596-41be-bd63-955be293e7b9.png" />
 
 Đây là offset của nó và công thức tính địa chỉ của tụi này là ` Địa chỉ = Lib_base + offset `. Vậy giờ hãy tìm địa chỉ của `system` và `str_bin_sh` thôi.
 

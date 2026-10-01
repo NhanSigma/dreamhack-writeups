@@ -74,7 +74,7 @@ Giờ thì bắt tay vô làm thôi.
 
 Đầu tiên là leak heap. Khi mình delete 1 note, mình để ý là thằng đầu tiên ở `name` hay `content` là heap nhưng bị dịch 12 bit.
 
-<img width="1449" height="533" alt="image" src="https://github.com/user-attachments/assets/da07e61f-94d3-4d72-8945-898a163c6cd2" />
+<img width="1449" height="533" alt="image" src="images/da07e61f-94d3-4d72-8945-898a163c6cd2.png" />
 
 Vậy thì ta sẽ delete thêm 1 lần nữa và print ra và dịch nó 12 bit là có heap rồi.
 
@@ -107,7 +107,7 @@ log.success(f'Libc Base : {hex(libc.address)}')
 
 Ok, sau khi có heap và libc ta sẽ bắt đầu cook bài này. Bởi vì ta không thể ghi đè vô vị trí của các `IO` nên ta sẽ đánh lừa nó nhảy vào thực thi ở 1 khu vực khác chứa sẵn payload của **House Of Apple 2**. Khi `exit`, nó sẽ nhìn vào `_IO_list_all` và lấy địa chỉ ở đó ra để duyệt các `IO` file còn lại. Vậy thì ta sẽ thay đổi giá trị địa chỉ trong `_IO_list_all` để trỏ vào vị trí payload của ta.
 
-<img width="1743" height="219" alt="image" src="https://github.com/user-attachments/assets/48a0f4bf-3e07-47a3-933c-0b7e3c572faf" />
+<img width="1743" height="219" alt="image" src="images/48a0f4bf-3e07-47a3-933c-0b7e3c572faf.png" />
 
 Đây là bin của chúng ta khi free hết 8 note, 0x20 là `Name`, 0x30 là `Struct` và 0x110 là `Content`. Ta sẽ sửa con trỏ tại `name` trỏ vào `_IO_list_all` thay vì trỏ vào `name` của thằng note khác.
 
@@ -127,7 +127,7 @@ edit(6, p64(mangled_io_list_all).ljust(16, b'\x00'), p64(mangled_content_6_fd))
 
 Sau khi sửa xong note 6 thì nó sẽ trỏ vào `_IO_list_all`
 
-<img width="1720" height="238" alt="image" src="https://github.com/user-attachments/assets/58f6de19-a22f-4760-8126-383a10a0fb0c" />
+<img width="1720" height="238" alt="image" src="images/58f6de19-a22f-4760-8126-383a10a0fb0c.png" />
 
 Giờ ta sẽ sửa note 0 lại để nó chứa payload độc của chúng ta
 
@@ -162,7 +162,7 @@ pause()
 add(10, 16, p64(fake_struct_addr).ljust(16, b'\x00'), b"BOOM")
 ```
 
-<img width="1398" height="277" alt="image" src="https://github.com/user-attachments/assets/234f4e96-8015-4bfb-b793-9388d7cc5941" />
+<img width="1398" height="277" alt="image" src="images/234f4e96-8015-4bfb-b793-9388d7cc5941.png" />
 
 Mình lỡ chạy lại chương trình nên số nó khác nhưng offset trong payload thì y chang nên các bạn khỏi lo. Mình đã sửa thành công địa chỉ `_IO_list_all` thành đầu note 0 nơi chứa payload mình. Và giờ chỉ cần exit là bùm nổ shell thôi.
 

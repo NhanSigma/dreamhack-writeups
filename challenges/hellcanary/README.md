@@ -67,7 +67,7 @@ Cách hoạt động của code này là nó sẽ tạo ra 10 cái canary ngẫu
 
 Giờ làm sao tìm được các vị trí nó sẽ chèn vào ? Các bạn hãy bấm chuột 2 lần vào `pad_size` thì nó sẽ ra như vậy.
 
-<img width="853" height="51" alt="image" src="https://github.com/user-attachments/assets/3b315113-f632-4dff-bba5-b99b954df6ac" />
+<img width="853" height="51" alt="image" src="images/3b315113-f632-4dff-bba5-b99b954df6ac.png" />
 
 Nhờ con AI dịch sang số nguyên là ta sẽ có 1 chuỗi như vậy `pad_sizes = [32, 56, 16, 64, 24, 40, 48, 16, 32, 56]`. Vậy là có các vị trí của các canary rồi, giờ tiếp theo là tại vị trí đó thì ta nên chèn canary gì để không bị sai lệch ?
 

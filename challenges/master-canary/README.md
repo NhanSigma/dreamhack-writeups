@@ -11,7 +11,7 @@ Hướng dẫn cách giải bài Master Canary cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Để giải bài này chúng ta cần làm sao cho 2 cái canary của bài bằng nhau. Canary đầu tiên là Canary system, cái thứ hai là Master Canary. Làm sao biết cần cho 2 cái này bằng nhau ? Hãy gõ `gdb mc_thread`, sau đó gõ `disas thread_routine` và tìm dòng sau.
 
-<img width="849" height="90" alt="image" src="https://github.com/user-attachments/assets/bc0b136f-b365-4582-a04a-4448d7085e87" />
+<img width="849" height="90" alt="image" src="images/bc0b136f-b365-4582-a04a-4448d7085e87.png" />
 
 `rbp-0x8` là Canary system, fs:0x28 là Master Canary, khi 2 cái này trừ nhau, nếu nó bằng 0 ( 0x4013b0 là 0 ) thì nó sẽ `<thread_routine+154>` còn không phải thì sẽ fail `<__stack_chk_fail@plt>`. Vậy làm sao để làm được bài này.
 
@@ -65,7 +65,7 @@ typedef struct {
 
 Các địa chỉ trước hãy bỏ đi, chúng ta chỉ quan tâm đến biến `self` trở xuống thôi. Thì khoảng cách `self` đến Master Canary là 24 byte ( 0x10 ). Nhưng con trỏ `self` này **bắt buộc** phải được trỏ vô 1 vùng nhớ hợp lệ. Vậy làm sao để kiếm được vùng nhớ hợp lệ ? Khi các bạn `checksec` bạn sẽ thấy No PIE, nghĩa là địa chỉ bộ nhớ cố định. Vùng nhớ **.bss** thường nằm ở địa chỉ 0x40400 trở đi ( biến toàn cục, có thể ghi được ). Làm sao để tìm được vùng này ? Gõ `readelf -S ./mc_thread` rồi tìm cái nào có **.bss**.
 
-<img width="800" height="165" alt="image" src="https://github.com/user-attachments/assets/6655b63c-c64e-437a-8cf7-a33bb8342c66" />
+<img width="800" height="165" alt="image" src="images/6655b63c-c64e-437a-8cf7-a33bb8342c66.png" />
 
 Đây là nó. Vậy là xong hãy bắt đầu ghi đè tới Master Canary thôi.
 

@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài no libc revenge cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Đầu tiên xem các lớp phòng thủ
 
-<img width="364" height="190" alt="image" src="https://github.com/user-attachments/assets/fa3dd350-3f49-474b-aabd-5c59ee3ec275" />
+<img width="364" height="190" alt="image" src="images/fa3dd350-3f49-474b-aabd-5c59ee3ec275.png" />
 
 No PIE, No Canary bú bú. Giờ hãy xem code.
 
@@ -40,7 +40,7 @@ Wow, ngắn vcl. Giờ bắt đầu phân tích nè, hàm `syscall3` nó hoạt 
 ## 2. Cách thực thi
 Để thực thi `syscall` ta cần tìm 1 vùng rwx. Mở vmmap lên mình thấy bài này nghèo điên.
 
-<img width="819" height="215" alt="image" src="https://github.com/user-attachments/assets/2b77fe93-bf03-4570-8fef-13f44d2386b3" />
+<img width="819" height="215" alt="image" src="images/2b77fe93-bf03-4570-8fef-13f44d2386b3.png" />
 
 Vùng duy nhất có rwx là `0x401000`, vô tình hay nó lại là điểm bắt đầu của hàm `syscall3` nên ta không thể ghi vào đây được. Vậy thì chỉ còn 1 cách là sử dụng `mprotect`. Ta sẽ biến vùng `0x402000` từ r thành rwx.
 
@@ -94,7 +94,7 @@ payload += p64(0x402500)
 
 Ok giờ hãy giải thích từng chỗ 1 nè, tại sao phải ghi RBP bằng `0x402500` mà không phải là padding ? 
 
-<img width="1386" height="364" alt="image" src="https://github.com/user-attachments/assets/30d93eab-9e28-47cc-8e79-4b403aa111b2" />
+<img width="1386" height="364" alt="image" src="images/30d93eab-9e28-47cc-8e79-4b403aa111b2.png" />
 
 Khi nó nhảy vào `syscall3`, nó sẽ kiểm tra `rbp-8`, mà nếu RBP là padding thì nó sẽ bị lỗi. Tiếp theo là tại sao phải là vùng `0x402500` ? Thứ nhất vùng này mình đã cấp quyền rwx rồi nên chấp tất cả các loại thầy pháp kiểm tra luôn nhá. Thứ hai là vì nó y chang thứ nhất 🐧.
 
@@ -102,7 +102,7 @@ Còn vì sao phải kèm thêm `p64(0x402500)` ở cuối mỗi ROPchain là vì
 
 Vậy là xong, bài này khá là dễ. Mình chỉ gặp rắc rối ở chỗ **mprotect** thôi, nhưng dù sao thì bài này cũng khá hay và dễ so với 1 bài lvl 3. Hãy cho mình 1 star để có động lực viết tiếp write up nha 🐧.
 
-<img width="686" height="386" alt="image" src="https://github.com/user-attachments/assets/4cf0165b-4151-4205-8a79-74da00fbc093" />
+<img width="686" height="386" alt="image" src="images/4cf0165b-4151-4205-8a79-74da00fbc093.png" />
 
 ## 3. Exploit
 

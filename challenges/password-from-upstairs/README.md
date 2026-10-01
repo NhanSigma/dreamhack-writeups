@@ -63,13 +63,13 @@ Như các bạn thấy thì nó sẽ mở ra file `flag.txt` và viết nội du
 
 Giờ thì làm sao để tìm ra được địa chỉ `v2` sau khi `sub_1348` thực thi xong và return về `main` ? Chúng ta sẽ dò bằng gdb. Hãy mở gdb lên và gõ `gdb ./main`. Sau đó `disas main`, đặt breakpoint ở vị trí sau khi thực thi xong `sub_1348` để dò `v2`.
 
-<img width="765" height="93" alt="image" src="https://github.com/user-attachments/assets/773abd0c-a93b-44c4-8a0d-641c3fa30f84" />
+<img width="765" height="93" alt="image" src="images/773abd0c-a93b-44c4-8a0d-641c3fa30f84.png" />
 
 Các bạn sẽ đặt breakpoint tại main+214 vì ở đây là lúc mà nó sẽ nhảy đến mmap mà chương trình đã tạo ra. Nói cách khác đây là lúc mà chương trình thực thi các lệnh trong mmap mà mình đã biên soạn.
 
 Đặt xong hãy chạy và nó sẽ kêu nhập input, hãy nhập đại số gì đó vì nó không quá quan trọng, có thể nhập `AAAA`. Sau khi nhập xong vì nó đã chạy xong `sub_1348` nên `v2` chắc chắn sẽ nằm trên stack tức là `rsp` nhưng nó sẽ bị tụt ở gần dưới đáy. Giờ hãy mò cua bắt óc thôi. Vì `v2` trong `sub_1348` là `rbp-0x70` nên khi chạy xong thì có khả năng `v2` sẽ nằm trên stack ở khoảng từ `0x100-0x0`. Giờ hãy gõ lệnh sau để dò là `x/40xg $rsp`. Vừa dò vừa gõ enter đến khi các bạn thấy kí tự sau.
 
-<img width="427" height="54" alt="image" src="https://github.com/user-attachments/assets/293a53c0-aa49-4679-820f-b5e36eaa9916" />
+<img width="427" height="54" alt="image" src="images/293a53c0-aa49-4679-820f-b5e36eaa9916.png" />
 
 44 ( D ), 48 ( H ),...
 

@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Youth Note cho anh em mới chơi pwnable.
 ## 1.Mục tiêu cần làm
 Đầu tiên là xem các lớp bảo vệ
 
-<img width="371" height="206" alt="image" src="https://github.com/user-attachments/assets/d0137ce9-a0d7-4f8f-998d-565b8c16ab7c" />
+<img width="371" height="206" alt="image" src="images/d0137ce9-a0d7-4f8f-998d-565b8c16ab7c.png" />
 
 Wow không bất ngờ lắm, anyway hãy đọc code nào.
 
@@ -124,7 +124,7 @@ Các bạn phải trừ thêm 8 byte nữa nó mới về đúng đầu của bu
 
 Vậy là xong, bài này các bạn có thể sử dụng **Onegadget** hoặc leak Binary bằng **OOB** và sau đó ghi ROPchain vào `memo` và Stack Pivot vô nó là xong. Hãy cho mình 1 star để có động lực viết thêm write up mới nha 🐧. Bài viết này được tài trợ bởi anh Ộ I I, nên mình sẽ quảng cáo bã mía loại 2 đè tem của anh ộ i i nha mọi người 🐱. Anh chộ tôi đó !
 
-<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/6097da0d-66ed-4a99-9716-79bbd2bc8dac" />
+<img width="1280" height="720" alt="image" src="images/6097da0d-66ed-4a99-9716-79bbd2bc8dac.png" />
 
 ## 3. Exploit
 ```Python

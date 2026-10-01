@@ -10,7 +10,7 @@ Hướng dẫn cách giải bài Flip Your Name cho anh em mới chơi pwnable.
 ## 1. Mục tiêu cần làm
 Vẫn như thường lệ
 
-<img width="336" height="171" alt="image" src="https://github.com/user-attachments/assets/41273016-e127-4277-ae48-de5c93ae6341" />
+<img width="336" height="171" alt="image" src="images/41273016-e127-4277-ae48-de5c93ae6341.png" />
 
 Tiếp theo là code xem như nào.
 
@@ -45,16 +45,16 @@ Bài này kết hợp đảo bit với OOB để ta có thể đảo bit ở b�
 
 Giờ tiếp theo là `read(0, s, nbytes);`, `nbytes` là bao nhiêu byte ? Nó là `0x50` byte aka 80. Có thể check trong gdb.
 
-<img width="504" height="26" alt="image" src="https://github.com/user-attachments/assets/e94c7e47-137e-40c2-9801-1fc0f36d6d52" />
+<img width="504" height="26" alt="image" src="images/e94c7e47-137e-40c2-9801-1fc0f36d6d52.png" />
 
-<img width="464" height="69" alt="image" src="https://github.com/user-attachments/assets/945b30d2-8bc5-42c1-854b-589214894d01" />
+<img width="464" height="69" alt="image" src="images/945b30d2-8bc5-42c1-854b-589214894d01.png" />
 
 Nhưng hãy nhìn lại 2 lỗi trên. Sẽ ra sao nếu ta đổi 1 byte trước nó thành `0xff` ? Nó sẽ trở thành `0xff50` = 65360, có nghĩa là ta có thể ghi tận 65360 byte. Ok giờ đủ dữ liệu rồi, bắt tay vô làm thôi.
 
 ## 2. Cách thực thi
 Đầu tiên ta cần xác định các vị trí byte null mà ta cần đảo bit để in 1 mạch ra là vị trí nào.
 
-<img width="769" height="281" alt="image" src="https://github.com/user-attachments/assets/213ed647-05a0-418b-9666-99c858a1729d" />
+<img width="769" height="281" alt="image" src="images/213ed647-05a0-418b-9666-99c858a1729d.png" />
 
 Các vị trí lần lượt sẽ là 86, 87, 88, 102, 103, 110, 111, 113 -> 120. Sau đó sửa lại ở vị trí 88 để tránh hư canary là được.
 
@@ -139,7 +139,7 @@ p.sendlineafter(b"want to quit? ", b"y")
 
 Vậy là xong, khi thoát bằng **y** thì nó sẽ thực thi chuỗi ROPchain của ta và sẽ bắn flag ra cho chúng ta thôi. Bài này chỉ là 1 bài **OOB** + **BOF** thôi không có gì hết. Hãy cho mình 1 star để có thêm động lực viết tiếp nha 🐧.
 
-<img width="662" height="482" alt="image" src="https://github.com/user-attachments/assets/18d6b90f-ec35-425a-b389-d1e052db5b84" />
+<img width="662" height="482" alt="image" src="images/18d6b90f-ec35-425a-b389-d1e052db5b84.png" />
 
 ## 3. Exploit
 
